@@ -1,6 +1,23 @@
 # 🍅 Terminal Pomodoro Timer - Focus Booster for Developers
 
+![PowerShell Script](https://img.shields.io/badge/Type-PowerShell_Script-blue) 
+![No Installation](https://img.shields.io/badge/Requires-No_Installation-green) 
+![Free](https://img.shields.io/badge/Price-Free-success) 
+![Terminal Based](https://img.shields.io/badge/Interface-Terminal_Only-brightgreen)
+![Productivity](https://img.shields.io/badge/Purpose-Productivity-orange)
+![Cross Platform](https://img.shields.io/badge/OS-Windows%20%7C%20Linux%20%7C%20Mac-lightgrey)
+
 ![🍅 Terminal Pomodoro Timer - Focus Booster for Developers](https://i.ibb.co/qMw45bF0/Terminal-Pomodoro-Timer-Focus-Booster-for-Developers.jpg)
+
+A beautiful terminal-based Pomodoro timer with visual progress bars and sound notifications.
+
+## Features
+
+- 🎨 **Animated progress bars** with bordered design
+- 🔔 **Sound notifications** for session transitions
+- ⏯️ **Pause/resume** functionality
+- 🕒 **Configurable durations** for work/break sessions
+- ⌨️ **Keyboard controls** during operation
 
 ## 💡 Why I Created This Tool
 
