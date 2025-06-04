@@ -1,6 +1,7 @@
 # 🍅 Terminal Pomodoro Timer - Focus Booster for Developers
 
-![Pomodoro Technique](https://img.icons8.com/color/96/000000/timer.png)
+<img src="https://i.ibb.co/qMw45bF0/Terminal-Pomodoro-Timer-Focus-Booster-for-Developers.jpg" alt="Terminal-Pomodoro-Timer-Focus-Booster-for-Developers" border="0">
+
 ## 💡 Why I Created This Tool
 
 After trying countless Pomodoro apps with distracting interfaces, premium paywalls, or complex setups, I built this **lightweight PowerShell solution** to solve three key problems:
