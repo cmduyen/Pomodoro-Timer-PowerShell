@@ -112,7 +112,7 @@ $soundBreakEnd = New-Object System.Media.SoundPlayer "C:\path\to\break_sound.wav
 | Purpose    | Example 1                                                              | Example 2                                                             |
 | ---------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | Work Start | [Gentle Chime](https://freesound.org/people/InspectorJ/sounds/411790/) | [Soft Beep](https://freesound.org/people/NoiseCollector/sounds/4391/) |
-| Work End   | [Alarm Buzzer](https://freesound.org/people/KorgMS2000B/sounds/52283/) | [Bell Ring](https://freesound.org/people/juskiddink/sounds/109663/)\|  |
+| Work End   | [Alarm Buzzer](https://freesound.org/people/KorgMS2000B/sounds/52283/) | [Bell Ring](https://freesound.org/people/juskiddink/sounds/109663/)  |
 |            |                                                                        |                                                                       |
 ## 🛠️ Troubleshooting
 If you get execution errors, run:
