@@ -1,6 +1,6 @@
 # 🍅 Terminal Pomodoro Timer - Focus Booster for Developers
 
-<img src="https://i.ibb.co/qMw45bF0/Terminal-Pomodoro-Timer-Focus-Booster-for-Developers.jpg" alt="Terminal-Pomodoro-Timer-Focus-Booster-for-Developers" border="0">
+![🍅 Terminal Pomodoro Timer - Focus Booster for Developers](https://i.ibb.co/qMw45bF0/Terminal-Pomodoro-Timer-Focus-Booster-for-Developers.jpg)
 
 ## 💡 Why I Created This Tool
 
