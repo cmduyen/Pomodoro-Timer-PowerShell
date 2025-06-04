@@ -156,4 +156,6 @@ Work session completed! Time for a break.
 ## 📜 License
 MIT License - Free for personal and commercial use
 
+---
+
 Made with ❤️ for Windows users | JustDuyen
