@@ -16,7 +16,7 @@
 $soundWorkEnd = [System.Media.SystemSounds]::Exclamation
 $soundBreakEnd = [System.Media.SystemSounds]::Asterisk
 
-# Timer settings (in seconds)
+# Timer settings
 $workDuration = 25 * 60    # 25 minutes
 $breakDuration = 5 * 60    # 5 minutes
 
@@ -26,6 +26,52 @@ $isPaused = $false
 $isWorkSession = $false
 $startTime = $null
 $shouldExit = $false
+
+function Show-BorderedProgressBar {
+    param(
+        [int]$current,
+        [int]$total,
+        [int]$width = 40,
+        [string]$color = "Green",
+        [string]$sessionType
+    )
+    
+    $progress = [math]::Min($current / $total, 1)
+    $filled = [math]::Floor($progress * $width)
+    $empty = $width - $filled
+    
+    # Create bordered progress bar with clear start/end markers
+    $progressBar = "╔" + ("═" * $width) + "╗`n"
+    $progressBar += "║"
+    
+    # Filled portion
+    if ($filled -gt 0) {
+        $progressBar += ("█" * $filled)
+    }
+    
+    # Current position indicator
+    if ($filled -lt $width) {
+        $animationChars = @('▌', '▀', '▐', '▄')
+        $animIndex = [int](($current % 0.2) * 20) % 4
+        $progressBar += $animationChars[$animIndex]
+        $progressBar += (" " * ($empty - 1))
+    }
+    
+    $progressBar += "║`n"
+    $progressBar += "╚" + ("═" * $width) + "╝"
+    
+    $timeSpan = [TimeSpan]::FromSeconds($total - $current)
+    $timeString = "{0:D2}:{1:D2}" -f $timeSpan.Minutes, $timeSpan.Seconds
+    $percent = ($progress * 100).ToString("0.0") + "%"
+    
+    # Compose display
+    $status = "$sessionType  $timeString  $percent"
+    $display = "`n$status`n$progressBar"
+    
+    # Clear previous output and display new one
+    [Console]::SetCursorPosition(0, [Console]::CursorTop - 4)
+    Write-Host $display -ForegroundColor $color -NoNewline
+}
 
 function Start-Countdown {
     param(
@@ -40,29 +86,24 @@ function Start-Countdown {
     $script:shouldExit = $false
     
     # Display initial message
-    if ($mode -eq "work") {
-        Write-Host "`nStarting work session for $($duration / 60) minutes..." -ForegroundColor Green
-    } else {
-        Write-Host "`nStarting break for $($duration / 60) minutes..." -ForegroundColor Cyan
-    }
+    $sessionType = if ($mode -eq "work") { "WORK SESSION" } else { "BREAK TIME" }
+    $color = if ($mode -eq "work") { "Green" } else { "Cyan" }
+    Write-Host "`nStarting $sessionType for $([math]::Floor($duration/60)) minutes...`n" -ForegroundColor $color
+    
+    # Initial empty progress bar
+    Show-BorderedProgressBar -current 0 -total $duration -color $color -sessionType $sessionType
     
     # Countdown loop
+    $elapsed = 0
     while ($remainingTime -ge 0 -and -not $shouldExit) {
         if (-not $isPaused) {
-            # Clear the line and display countdown
-            [Console]::SetCursorPosition(0, [Console]::CursorTop)
-            $timeSpan = [TimeSpan]::FromSeconds($remainingTime)
-            $timeString = "{0:D2}:{1:D2}" -f $timeSpan.Minutes, $timeSpan.Seconds
-            
-            if ($isWorkSession) {
-                Write-Host -NoNewline "WORK TIME remaining: $timeString" -ForegroundColor Green
-            } else {
-                Write-Host -NoNewline "BREAK TIME remaining: $timeString" -ForegroundColor Cyan
-            }
+            # Update progress display
+            Show-BorderedProgressBar -current $elapsed -total $duration -color $color -sessionType $sessionType
             
             $remainingTime--
+            $elapsed++
             
-            # Check for keyboard input without blocking
+            # Check for keyboard input
             if ([Console]::KeyAvailable) {
                 $key = [Console]::ReadKey($true)
                 if ($key.Key -eq [ConsoleKey]::P) {
@@ -75,12 +116,12 @@ function Start-Countdown {
                 }
             }
         } else {
-            # Paused state - check for resume or exit
+            # Paused state
             if ([Console]::KeyAvailable) {
                 $key = [Console]::ReadKey($true)
                 if ($key.Key -eq [ConsoleKey]::R) {
                     $script:isPaused = $false
-                    Write-Host "`nTimer resumed." -ForegroundColor Green
+                    Write-Host "`nTimer resumed." -ForegroundColor $color
                 }
                 elseif ($key.Key -eq [ConsoleKey]::E) {
                     $script:shouldExit = $true
@@ -92,21 +133,21 @@ function Start-Countdown {
         Start-Sleep -Seconds 1
     }
     
-    # Timer completed (only if not exited)
+    # Timer completed
     if (-not $shouldExit) {
         if ($isWorkSession) {
             $soundWorkEnd.Play()
-            Write-Host "`n`nWork session completed! Time for a break." -ForegroundColor Yellow
+            Write-Host "`nWork session completed! Time for a break." -ForegroundColor Yellow
         } else {
             $soundBreakEnd.Play()
-            Write-Host "`n`nBreak time over! Ready for another work session?" -ForegroundColor Yellow
+            Write-Host "`nBreak time over! Ready for another work session?" -ForegroundColor Yellow
         }
     }
 }
 
 # Main loop
-Write-Host "`n🍅 Simple Pomodoro Timer" -ForegroundColor Magenta
-Write-Host "---------------------"
+Write-Host "`n🍅 Pomodoro Timer | JustDuyen" -ForegroundColor Magenta
+Write-Host "----------------------------------------"
 Write-Host "Commands:"
 Write-Host "  work    - Start 25-minute work session"
 Write-Host "  break   - Start 5-minute break"
