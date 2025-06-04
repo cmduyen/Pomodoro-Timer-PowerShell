@@ -1,7 +1,6 @@
 # 🍅 Terminal Pomodoro Timer - Focus Booster for Developers
 
 ![Pomodoro Technique](https://img.icons8.com/color/96/000000/timer.png)
-
 ## 💡 Why I Created This Tool
 
 After trying countless Pomodoro apps with distracting interfaces, premium paywalls, or complex setups, I built this **lightweight PowerShell solution** to solve three key problems:
@@ -60,3 +59,81 @@ Try it for just **3 sessions** and you'll notice:
 - Fewer unintended social media checks
 - More consistent coding flow
 - Clearer task completion awareness
+
+## 🚀 Basic Usage
+Run the timer:
+
+```powershell
+.\PomodoroTimer.ps1
+```
+
+**Available Commands:**
+
+| Command | Action                       | Shortcut Key |
+| ------- | ---------------------------- | ------------ |
+| work    | Start 25-minute work session | -            |
+| break   | Start 5-minute break         | -            |
+| -       | Pause timer                  | P            |
+| -       | Resume timer                 | R            |
+| exit    | Quit the application         | E            |
+
+## ⚙️ Customization
+### 1. Changing Time Durations
+Edit these values in the script:
+
+```powershell
+# Work duration in seconds (default: 25 minutes)
+$workDuration = 25 * 60
+
+# Break duration in seconds (default: 5 minutes)
+$breakDuration = 5 * 60
+```
+### 2. Customizing Sounds
+**Option A: Use System Sounds**
+Replace these lines to use different system sounds:
+
+```powershell
+$soundWorkEnd = [System.Media.SystemSounds]::Exclamation  # Try ::Beep, ::Hand, etc.
+$soundBreakEnd = [System.Media.SystemSounds]::Asterisk
+```
+
+**Option B: Use Custom WAV Files**
+1. Add these lines to the script:
+
+```powershell
+$soundWorkEnd = New-Object System.Media.SoundPlayer "C:\path\to\work_sound.wav"
+$soundBreakEnd = New-Object System.Media.SoundPlayer "C:\path\to\break_sound.wav"
+```
+
+2. Download WAV files (recommended from Freesound.org)
+
+**Recommended Sound Pairs:**
+
+| Purpose    | Example 1                                                              | Example 2                                                             |
+| ---------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Work Start | [Gentle Chime](https://freesound.org/people/InspectorJ/sounds/411790/) | [Soft Beep](https://freesound.org/people/NoiseCollector/sounds/4391/) |
+| Work End   | [Alarm Buzzer](https://freesound.org/people/KorgMS2000B/sounds/52283/) | Bell Ring](https://freesound.org/people/juskiddink/sounds/109663/)\|  |
+|            |                                                                        |                                                                       |
+## 🛠️ Troubleshooting
+If you get execution errors, run:
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process
+```
+
+## 📊 Example Session
+
+```powershell
+pomodoro> work
+Starting work session for 25 minutes...
+WORK TIME remaining: 24:59  # Counts down every second
+[Press P] 
+Timer paused. Press 'R' to resume or 'E' to exit.
+[Press R]
+Timer resumed.
+...
+Work session completed! Time for a break.
+```
+
+## 📜 License
+MIT License - Free for personal and commercial use
